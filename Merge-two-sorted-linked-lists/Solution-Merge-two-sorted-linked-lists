@@ -1,0 +1,103 @@
+/*
+  Merge two linked lists 
+  head pointer input could be NULL as well for empty list
+  Node is defined as 
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+
+Node mergeLists(Node headA, Node headB) {
+    
+    boolean aEmpty = false;
+    boolean bEmpty = false;
+    Node mergedList = new Node();
+     Node headMergedList = mergedList;
+    
+    if(headA == null ) return headB;
+    if(headB == null ) return headA;
+    
+    if(headA.next == null && headB.next == null) {
+        if(headA.data > headB.data){
+            mergedList.data =  headB.data;
+            mergedList.next = new Node();
+            mergedList = mergedList.next;
+            mergedList.data = headA.data;
+        }
+        return headMergedList;
+    }
+    
+    while (headA.next != null &&  headB.next != null){
+        if(headA.data > headB.data){
+           mergedList.data =  headB.data;
+           headB = headB.next;
+        }else{
+          mergedList.data =  headA.data;
+          headA = headA.next;
+        }
+         mergedList.next = new Node();
+         mergedList = mergedList.next; 
+    }
+    
+    if(headA.next == null ) aEmpty = true;
+    if(headB.next == null ) bEmpty = true;
+      
+    if(aEmpty == true) {
+        while(headB.next != null){
+            if (headA.data < headB.data){
+                mergedList.data = headA.data;
+                mergedList.next = new Node();
+                mergedList = mergedList.next; 
+                headB = headB.next;
+                break;
+            }else{
+                 mergedList.data = headB.data;
+                 mergedList.next = new Node();
+                 mergedList = mergedList.next; 
+                 headB = headB.next;
+            }
+        }
+    }
+    
+    if(bEmpty == true) {
+        while(headA.next != null){
+             
+            if (headA.data < headB.data){
+                mergedList.data = headA.data;
+                mergedList.next = new Node();
+                mergedList = mergedList.next; 
+                headA = headA.next;
+                
+            }else{
+                 mergedList.data = headB.data;
+                 mergedList.next = new Node();
+                 mergedList = mergedList.next; 
+                 headA = headA.next;
+                 break;
+            }
+        }
+    }
+    
+    if(headA.next == null ) aEmpty = true;
+    if(headB.next == null ) bEmpty = true;
+    
+  
+    if(bEmpty == true && aEmpty == true){
+        
+        if(headA.data > headB.data){
+            mergedList.data =  headB.data;
+            mergedList.next = new Node();
+            mergedList = mergedList.next;
+            mergedList.data = headA.data;
+        }else{
+            mergedList.data =  headA.data;
+            mergedList.next = new Node();
+            mergedList = mergedList.next;
+            mergedList.data = headB.data;
+        }
+    }
+    
+    return headMergedList;
+
+}
